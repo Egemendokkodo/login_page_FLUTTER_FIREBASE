@@ -93,19 +93,48 @@ class LoginPage extends StatelessWidget {
                                 margin: const EdgeInsets.only(top: 20),
                                 child: const Text("or",
                                     style: TextStyle(color: Colors.white))),
-                            ButtonStyle(
-                              "Continue with Facebook",
-                              Image.asset("assets/images/facebook.png")
+                            ButtonStyle("Continue with Facebook",
+                                Image.asset("assets/images/facebook.png")),
+                            ButtonStyle("Continue with facebook",
+                                Image.asset("assets/images/google.png")),
+                            ButtonStyle("Continue with Apple",
+                                Image.asset("assets/images/apple.png")),
+                            Container(
+                              margin: const EdgeInsets.only(top: 5),
+                              child: Column(
+                                children: [
+                                  Row(
+                                    children: [
+                                      TextButton(
+                                          onPressed: () {},
+                                          child: const Text(
+                                            "Don't have an account?",
+                                            style: TextStyle(
+                                                color: Color(0xffffffff)),
+                                          )),
+                                      TextButton(
+                                          onPressed: () {},
+                                          child: const Text(
+                                            "Sign up",
+                                            style: TextStyle(
+                                                color: Color(0xff0080cd)),
+                                          ))
+                                    ],
+                                  ),
+                                  Container(
+                                    alignment: Alignment.topLeft,
+                                    child: TextButton(
+                                        onPressed: () {},
+                                        child: const Text(
+                                          "Forgot your password?",
+                                          textAlign: TextAlign.left,
+                                          style: TextStyle(
+                                              color: Color(0xff0080cd)),
+                                        )),
+                                  )
+                                ],
+                              ),
                             ),
-                            ButtonStyle(
-                              "Continue with facebook",
-                              Image.asset("assets/images/google.png")
-                            ),
-                            ButtonStyle(
-                              "Continue with Apple",
-                              Image.asset("assets/images/apple.png")
-                            )
-                            
                           ],
                         ),
                       ),
@@ -134,6 +163,9 @@ class LoginPage extends StatelessWidget {
             ),
             onPressed: () {},
             icon: icon,
-            label: Align(alignment: Alignment.center, child: Text(s,style:const TextStyle(color: Color(0xff0080cd))))));
+            label: Align(
+                alignment: Alignment.center,
+                child: Text(s,
+                    style: const TextStyle(color: Color(0xff0080cd))))));
   }
 }
