@@ -1,5 +1,5 @@
 import 'dart:ui';
-
+import 'widgets.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatelessWidget {
@@ -8,6 +8,7 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      
       body: Container(
         decoration: const BoxDecoration(
           image: DecorationImage(
@@ -18,17 +19,14 @@ class LoginPage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Padding(
-              padding: EdgeInsets.only(left: 20),
-              child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    "Welcome!",
-                    style: TextStyle(
-                        color: Color(0xff1b8bb4),
-                        fontSize: 40,
-                        fontWeight: FontWeight.bold),
-                  )),
+            Container(
+              margin: const EdgeInsets.only(bottom: 20),
+              child: Padding(
+                padding: const EdgeInsets.only(left: 20),
+                child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: MyWidgets().TitleText("Welcome!", 30)),
+              ),
             ),
             Container(
               alignment: Alignment.center,
@@ -56,21 +54,8 @@ class LoginPage extends StatelessWidget {
                         padding: const EdgeInsets.all(20),
                         child: Column(
                           children: [
-                            TextField(
-                              decoration: InputDecoration(
-                                hintText: "Email",
-                                contentPadding: const EdgeInsets.all(20),
-                                filled: true,
-                                fillColor: Colors.white,
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(8),
-                                  borderSide: const BorderSide(
-                                    width: 0,
-                                    style: BorderStyle.none,
-                                  ),
-                                ),
-                              ),
-                            ),
+                            MyWidgets().TextFieldCustom(
+                                "Email", TextInputType.emailAddress),
                             Container(
                               margin: const EdgeInsets.only(top: 15),
                               child: ElevatedButton(
@@ -91,13 +76,12 @@ class LoginPage extends StatelessWidget {
                             ),
                             Container(
                                 margin: const EdgeInsets.only(top: 20),
-                                child: const Text("or",
-                                    style: TextStyle(color: Colors.white))),
-                            ButtonStyle("Continue with Facebook",
+                                child: MyWidgets().TitleText("or", 15)),
+                            MyWidgets().ButtonStyle("Continue with Facebook",
                                 Image.asset("assets/images/facebook.png")),
-                            ButtonStyle("Continue with facebook",
+                            MyWidgets().ButtonStyle("Continue with Google",
                                 Image.asset("assets/images/google.png")),
-                            ButtonStyle("Continue with Apple",
+                            MyWidgets().ButtonStyle("Continue with Apple",
                                 Image.asset("assets/images/apple.png")),
                             Container(
                               margin: const EdgeInsets.only(top: 5),
@@ -105,20 +89,10 @@ class LoginPage extends StatelessWidget {
                                 children: [
                                   Row(
                                     children: [
-                                      TextButton(
-                                          onPressed: () {},
-                                          child: const Text(
-                                            "Don't have an account?",
-                                            style: TextStyle(
-                                                color: Color(0xffffffff)),
-                                          )),
-                                      TextButton(
-                                          onPressed: () {},
-                                          child: const Text(
-                                            "Sign up",
-                                            style: TextStyle(
-                                                color: Color(0xff0080cd)),
-                                          ))
+                                      MyWidgets().CustomTextButton(
+                                          "Don't have an account?", 0xffffffff),
+                                      MyWidgets().CustomTextButton(
+                                          "Sign Up", 0xff0080cd)
                                     ],
                                   ),
                                   Container(
@@ -147,25 +121,5 @@ class LoginPage extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  Container ButtonStyle(String s, Image icon) {
-    return Container(
-        margin: const EdgeInsets.only(top: 15),
-        child: ElevatedButton.icon(
-            style: ElevatedButton.styleFrom(
-              alignment: Alignment.centerLeft,
-              backgroundColor: const Color(0xffffffff),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10),
-              ),
-              minimumSize: const Size.fromHeight(50),
-            ),
-            onPressed: () {},
-            icon: icon,
-            label: Align(
-                alignment: Alignment.center,
-                child: Text(s,
-                    style: const TextStyle(color: Color(0xff0080cd))))));
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:login_page_design/sign_up_page.dart';
 import 'LoginPage.dart';
 
 void main() {
