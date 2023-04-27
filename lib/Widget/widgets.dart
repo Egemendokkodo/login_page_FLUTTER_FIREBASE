@@ -1,9 +1,9 @@
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'dart:ui';
 import '../View/sign_up_page.dart';
 
-
-class MyWidgets{
+class MyWidgets {
   AppBar MyAppBar(BuildContext context) {
     return AppBar(
       leading: InkWell(
@@ -32,9 +32,11 @@ class MyWidgets{
     );
   }
 
-  TextField TextFieldCustom(String s, TextInputType emailAddress,
+  TextField TextFieldCustom(TextEditingController? controller, String s,
+      TextInputType emailAddress, IconData email,
       [IconData? icon]) {
     return TextField(
+      controller: controller,
       keyboardType: emailAddress,
       decoration: InputDecoration(
         prefixIcon: Icon(icon),
@@ -89,7 +91,42 @@ class MyWidgets{
                     style: const TextStyle(color: Color(0xff0080cd))))));
   }
 
-  ElevatedButton MyElevatedButton(String s) {
+  ElevatedButton MyElevatedButtonSendData(
+      String s,
+      DatabaseReference dbRef,
+      TextEditingController emailController,
+      TextEditingController passwordController,
+      TextEditingController nameController,
+      TextEditingController surnameController, TextEditingController usernameController) {
+    return ElevatedButton(
+      style: ElevatedButton.styleFrom(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+        backgroundColor: const Color(0xff1b8bb4),
+        minimumSize: const Size.fromHeight(50),
+      ),
+      onPressed: () {
+        //TODO:: BURADA KULLANICININ GİRDİĞİ DEĞERLERİ KONTROL ET
+        Map<String?, String?> users = {
+          "username": usernameController.text,
+          "name": nameController.text,
+          "surname": surnameController.text,
+          "email": emailController.text,
+          "password": emailController.text,
+        };
+        dbRef.child(usernameController.text).push().set(users);
+      },
+      child: Text(
+        s,
+        style: const TextStyle(fontSize: 20, color: Color(0xfff0ffff)),
+      ),
+    );
+  }
+
+  ElevatedButton MyElevatedButtonLogin(
+    String s,
+  ) {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
         shape: RoundedRectangleBorder(
@@ -101,7 +138,7 @@ class MyWidgets{
       onPressed: () {},
       child: Text(
         s,
-        style: TextStyle(fontSize: 20, color: Color(0xfff0ffff)),
+        style: const TextStyle(fontSize: 20, color: Color(0xfff0ffff)),
       ),
     );
   }
@@ -118,8 +155,7 @@ class MyWidgets{
         ));
   }
 
-  Scaffold GlassPaneForLoginPage(
-      [Column? column]) {
+  Scaffold GlassPaneForLoginPage([Column? column]) {
     return Scaffold(
       extendBodyBehindAppBar: true,
       body: Container(
@@ -164,8 +200,7 @@ class MyWidgets{
                           color: Colors.white.withOpacity(0.1),
                           borderRadius: BorderRadius.circular(16.0)),
                       child: Padding(
-                          padding: const EdgeInsets.all(20), 
-                          child: column),
+                          padding: const EdgeInsets.all(20), child: column),
                     ),
                   ),
                 ),
@@ -218,7 +253,7 @@ class MyWidgets{
                       sigmaY: 4.0,
                     ),
                     child: Container(
-                      height: 400,
+                      height: 500,
                       width: 380,
                       decoration: BoxDecoration(
                           color: Colors.white.withOpacity(0.1),

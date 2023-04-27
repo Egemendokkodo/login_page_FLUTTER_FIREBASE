@@ -1,3 +1,4 @@
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import '../Widget/widgets.dart';
 
@@ -12,6 +13,21 @@ class SignUpPage extends StatefulWidget {
 
 class _SignUpPageState extends State<SignUpPage> {
   bool _obscureText = true;
+
+  late DatabaseReference dbRef;
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController surnameController = TextEditingController();
+  final TextEditingController usernameController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+
+    dbRef = FirebaseDatabase.instance.ref().child("users");
+  }
+
   @override
   Widget build(BuildContext context) {
     return MyWidgets().GlassPaneForSignUpPage(
@@ -24,8 +40,13 @@ class _SignUpPageState extends State<SignUpPage> {
           children: [
             // bu children ın altına ögeleri ekleyeceğiz
 
-            MyWidgets().TextFieldCustom(
+            MyWidgets().TextFieldCustom(emailController,
                 "Email", TextInputType.emailAddress, Icons.email),
+                Container(
+                  margin:const EdgeInsets.only(top: 10),
+                  child: MyWidgets().TextFieldCustom(usernameController,
+                  "Username", TextInputType.emailAddress, Icons.percent_sharp),
+                ),
 
             Container(
               margin: const EdgeInsets.only(top: 10),
@@ -34,11 +55,11 @@ class _SignUpPageState extends State<SignUpPage> {
                 children: [
                   SizedBox(
                       width: 165,
-                      child: MyWidgets().TextFieldCustom(
+                      child: MyWidgets().TextFieldCustom(nameController,
                           "Name", TextInputType.name, Icons.person)),
                   SizedBox(
                       width: 165,
-                      child: MyWidgets().TextFieldCustom(
+                      child: MyWidgets().TextFieldCustom(surnameController,
                           "Surname", TextInputType.name, Icons.person)),
                 ],
               ),
@@ -46,20 +67,20 @@ class _SignUpPageState extends State<SignUpPage> {
 
             Container(
                 margin: const EdgeInsets.only(top: 10),
-                child: MyPasswordInputText("Password")),
+                child: MyPasswordInputText("Password",passwordController)),
             Container(
                 margin: const EdgeInsets.only(top: 10),
-                child: MyPasswordInputText("Re-enter password")),
+                child: MyPasswordInputText("Re-enter password",null)),
             Container(
                 margin: const EdgeInsets.only(top: 10),
-                child: MyWidgets().MyElevatedButton("Sign Up")),
+                child: MyWidgets().MyElevatedButtonSendData("Sign Up",dbRef,emailController,passwordController,nameController,surnameController,usernameController)),
           ],
         ));
   }
 
-  TextField MyPasswordInputText(String s) {
+  TextField MyPasswordInputText(String s,TextEditingController? controller) {
     return TextField(
-      controller: widget.controller,
+      controller: controller,
       obscureText: _obscureText,
       decoration: InputDecoration(
         prefixIcon: const Icon(Icons.lock),
