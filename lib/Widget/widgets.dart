@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'dart:ui';
 import '../View/sign_up_page.dart';
 
-class MyWidgets {
+
+class MyWidgets{
   AppBar MyAppBar(BuildContext context) {
     return AppBar(
       leading: InkWell(
@@ -118,10 +119,9 @@ class MyWidgets {
   }
 
   Scaffold GlassPaneForLoginPage(
-      [PreferredSize? preferredSize, Column? column]) {
+      [Column? column]) {
     return Scaffold(
       extendBodyBehindAppBar: true,
-      appBar: preferredSize,
       body: Container(
         decoration: const BoxDecoration(
           image: DecorationImage(
@@ -164,7 +164,8 @@ class MyWidgets {
                           color: Colors.white.withOpacity(0.1),
                           borderRadius: BorderRadius.circular(16.0)),
                       child: Padding(
-                          padding: const EdgeInsets.all(20), child: column),
+                          padding: const EdgeInsets.all(20), 
+                          child: column),
                     ),
                   ),
                 ),

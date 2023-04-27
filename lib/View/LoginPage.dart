@@ -1,5 +1,3 @@
-import 'package:login_page_design/View/sign_up_page.dart';
-
 import '../Widget/widgets.dart';
 import 'package:flutter/material.dart';
 
@@ -9,7 +7,7 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MyWidgets().GlassPaneForLoginPage(
-        null,
+        
         Column(
           children: [
             MyWidgets().TextFieldCustom("Email", TextInputType.emailAddress,Icons.email),
@@ -55,7 +53,22 @@ class LoginPage extends StatelessWidget {
         ));
   }
 
-  
+  ElevatedButton MyElevatedButton(String s) {
+    return ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                backgroundColor: const Color(0xff1b8bb4),
+                minimumSize: const Size.fromHeight(50),
+              ),
+              onPressed: () {},
+              child: Text(
+                s,
+                style: TextStyle(fontSize: 20, color: Color(0xfff0ffff)),
+              ),
+            );
+  }
 }
 
 
