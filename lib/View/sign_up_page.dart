@@ -1,4 +1,4 @@
-import 'package:firebase_database/firebase_database.dart';
+
 import 'package:flutter/material.dart';
 import '../Widget/widgets.dart';
 
@@ -14,18 +14,17 @@ class SignUpPage extends StatefulWidget {
 class _SignUpPageState extends State<SignUpPage> {
   bool _obscureText = true;
 
-  late DatabaseReference dbRef;
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController nameController = TextEditingController();
   final TextEditingController surnameController = TextEditingController();
   final TextEditingController usernameController = TextEditingController();
+  final TextEditingController rePasswordController = TextEditingController();
 
   @override
   void initState() {
     super.initState();
 
-    dbRef = FirebaseDatabase.instance.ref().child("users");
   }
 
   @override
@@ -70,10 +69,10 @@ class _SignUpPageState extends State<SignUpPage> {
                 child: MyPasswordInputText("Password",passwordController)),
             Container(
                 margin: const EdgeInsets.only(top: 10),
-                child: MyPasswordInputText("Re-enter password",null)),
+                child: MyPasswordInputText("Re-enter password",rePasswordController)),
             Container(
                 margin: const EdgeInsets.only(top: 10),
-                child: MyWidgets().MyElevatedButtonSendData("Sign Up",dbRef,emailController,passwordController,nameController,surnameController,usernameController)),
+                child: MyWidgets().MyElevatedButtonSendData(context,"Sign Up",emailController,passwordController,nameController,surnameController,usernameController,rePasswordController)),
           ],
         ));
   }

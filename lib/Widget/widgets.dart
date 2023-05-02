@@ -1,5 +1,6 @@
-import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:login_page_design/Firebase/operations.dart';
+
 import 'dart:ui';
 import '../View/sign_up_page.dart';
 
@@ -92,12 +93,14 @@ class MyWidgets {
   }
 
   ElevatedButton MyElevatedButtonSendData(
+      BuildContext context,
       String s,
-      DatabaseReference dbRef,
       TextEditingController emailController,
       TextEditingController passwordController,
       TextEditingController nameController,
-      TextEditingController surnameController, TextEditingController usernameController) {
+      TextEditingController surnameController,
+      TextEditingController usernameController,
+      TextEditingController rePasswordController) {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
         shape: RoundedRectangleBorder(
@@ -106,16 +109,9 @@ class MyWidgets {
         backgroundColor: const Color(0xff1b8bb4),
         minimumSize: const Size.fromHeight(50),
       ),
-      onPressed: () {
-        //TODO:: BURADA KULLANICININ GİRDİĞİ DEĞERLERİ KONTROL ET
-        Map<String?, String?> users = {
-          "username": usernameController.text,
-          "name": nameController.text,
-          "surname": surnameController.text,
-          "email": emailController.text,
-          "password": emailController.text,
-        };
-        dbRef.child(usernameController.text).push().set(users);
+      onPressed: () async {
+        //TODO:: BURADA VERİTABANINA KAYDET
+        DatabaseOperations().checkCredentials(context,emailController.text,passwordController.text,nameController.text,surnameController.text,usernameController.text,rePasswordController.text);
       },
       child: Text(
         s,
@@ -269,5 +265,16 @@ class MyWidgets {
         ),
       ),
     );
+  }
+
+  void MySnackbar(BuildContext context, String s) {
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      behavior: SnackBarBehavior.floating,
+      backgroundColor: Colors.white,
+      content: Text(
+        s,
+        style: const TextStyle(color: Colors.black87),
+      ),
+    ));
   }
 }
