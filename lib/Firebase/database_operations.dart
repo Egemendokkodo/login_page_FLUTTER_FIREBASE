@@ -19,10 +19,7 @@ class DatabaseOperations {
   Future checkCredentials(context, String email, String password, String name,
       String surname, String username, String rePassword) async {
     final DocumentSnapshot<Map<String, dynamic>> documentSnapshot =
-        await FirebaseFirestore.instance
-            .collection('users')
-            .doc(email)
-            .get();
+        await FirebaseFirestore.instance.collection('users').doc(email).get();
 
     if (documentSnapshot.exists) {
       MyWidgets().MySnackbar(context, "email already exists.");
@@ -30,8 +27,18 @@ class DatabaseOperations {
     if (password != rePassword) {
       MyWidgets().MySnackbar(context, "passwords does not match.");
     } else {
-      addUser(email, password, name, surname, username);
-      return false;
+      FirebaseFirestore.instance
+          .collection('users')
+          .get()
+          .then((querySnapshot) {
+        for (var doc in querySnapshot.docs) {
+          if (doc.data()['name'] == name) {
+            MyWidgets().MySnackbar(context, "username already exists.");
+          }else{
+            addUser(email, password, name, surname, username);
+          }
+        }
+      });
     }
   }
 }

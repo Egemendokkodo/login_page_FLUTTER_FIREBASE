@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import '../Widget/widgets.dart';
 
@@ -24,7 +23,6 @@ class _SignUpPageState extends State<SignUpPage> {
   @override
   void initState() {
     super.initState();
-
   }
 
   @override
@@ -39,13 +37,13 @@ class _SignUpPageState extends State<SignUpPage> {
           children: [
             // bu children ın altına ögeleri ekleyeceğiz
 
-            MyWidgets().TextFieldCustom(emailController,
-                "Email", TextInputType.emailAddress, Icons.email),
-                Container(
-                  margin:const EdgeInsets.only(top: 10),
-                  child: MyWidgets().TextFieldCustom(usernameController,
-                  "Username", TextInputType.emailAddress, Icons.percent_sharp),
-                ),
+            MyWidgets().TextFieldCustom(emailController, "Email",
+                TextInputType.emailAddress, Icons.email),
+            Container(
+              margin: const EdgeInsets.only(top: 10),
+              child: MyWidgets().TextFieldCustom(usernameController, "Username",
+                  TextInputType.emailAddress, Icons.account_box_rounded),
+            ),
 
             Container(
               margin: const EdgeInsets.only(top: 10),
@@ -54,8 +52,8 @@ class _SignUpPageState extends State<SignUpPage> {
                 children: [
                   SizedBox(
                       width: 165,
-                      child: MyWidgets().TextFieldCustom(nameController,
-                          "Name", TextInputType.name, Icons.person)),
+                      child: MyWidgets().TextFieldCustom(nameController, "Name",
+                          TextInputType.name, Icons.person)),
                   SizedBox(
                       width: 165,
                       child: MyWidgets().TextFieldCustom(surnameController,
@@ -66,18 +64,27 @@ class _SignUpPageState extends State<SignUpPage> {
 
             Container(
                 margin: const EdgeInsets.only(top: 10),
-                child: MyPasswordInputText("Password",passwordController)),
+                child: MyPasswordInputText("Password", passwordController)),
             Container(
                 margin: const EdgeInsets.only(top: 10),
-                child: MyPasswordInputText("Re-enter password",rePasswordController)),
+                child: MyPasswordInputText(
+                    "Re-enter password", rePasswordController)),
             Container(
                 margin: const EdgeInsets.only(top: 10),
-                child: MyWidgets().MyElevatedButtonSendData(context,"Sign Up",emailController,passwordController,nameController,surnameController,usernameController,rePasswordController)),
+                child: MyWidgets().MyElevatedButtonSendData(
+                    context,
+                    "Sign Up",
+                    emailController,
+                    passwordController,
+                    nameController,
+                    surnameController,
+                    usernameController,
+                    rePasswordController)),
           ],
         ));
   }
 
-  TextField MyPasswordInputText(String s,TextEditingController? controller) {
+  TextField MyPasswordInputText(String s, TextEditingController? controller) {
     return TextField(
       controller: controller,
       obscureText: _obscureText,

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:login_page_design/Firebase/operations.dart';
-
+import 'package:login_page_design/View/enter_password_page.dart';
 import 'dart:ui';
 import '../View/sign_up_page.dart';
+import '../Firebase/database_operations.dart';
 
 class MyWidgets {
   AppBar MyAppBar(BuildContext context) {
@@ -34,8 +34,7 @@ class MyWidgets {
   }
 
   TextField TextFieldCustom(TextEditingController? controller, String s,
-      TextInputType emailAddress, IconData email,
-      [IconData? icon]) {
+      TextInputType emailAddress, IconData icon) {
     return TextField(
       controller: controller,
       keyboardType: emailAddress,
@@ -111,7 +110,14 @@ class MyWidgets {
       ),
       onPressed: () async {
         //TODO:: BURADA VERİTABANINA KAYDET
-        DatabaseOperations().checkCredentials(context,emailController.text,passwordController.text,nameController.text,surnameController.text,usernameController.text,rePasswordController.text);
+        DatabaseOperations().checkCredentials(
+            context,
+            emailController.text,
+            passwordController.text,
+            nameController.text,
+            surnameController.text,
+            usernameController.text,
+            rePasswordController.text);
       },
       child: Text(
         s,
@@ -121,6 +127,7 @@ class MyWidgets {
   }
 
   ElevatedButton MyElevatedButtonLogin(
+    BuildContext context,
     String s,
   ) {
     return ElevatedButton(
@@ -131,7 +138,10 @@ class MyWidgets {
         backgroundColor: const Color(0xff1b8bb4),
         minimumSize: const Size.fromHeight(50),
       ),
-      onPressed: () {},
+      onPressed: () {
+        Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => const EnterPasswordPage()));
+      },
       child: Text(
         s,
         style: const TextStyle(fontSize: 20, color: Color(0xfff0ffff)),
@@ -170,7 +180,7 @@ class MyWidgets {
                 padding: const EdgeInsets.only(left: 20),
                 child: Align(
                     alignment: Alignment.centerLeft,
-                    child: MyWidgets().TitleText("Sign Up", 30)),
+                    child: MyWidgets().TitleText("Sign In", 30)),
               ),
             ),
             Container(
@@ -191,6 +201,65 @@ class MyWidgets {
                     ),
                     child: Container(
                       height: 500,
+                      width: 380,
+                      decoration: BoxDecoration(
+                          color: Colors.white.withOpacity(0.1),
+                          borderRadius: BorderRadius.circular(16.0)),
+                      child: Padding(
+                          padding: const EdgeInsets.all(20), child: column),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Scaffold GlassPaneForEnterPasswordPage(
+      [PreferredSize? preferredSize, Column? column]) {
+    return Scaffold(
+      extendBodyBehindAppBar: true,
+      appBar: preferredSize,
+      body: Container(
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('assets/images/img2.jpg'),
+            fit: BoxFit.cover,
+          ),
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              margin: const EdgeInsets.only(bottom: 20),
+              child: Padding(
+                padding: const EdgeInsets.only(left: 20),
+                child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: MyWidgets().TitleText("Log In", 30)),
+              ),
+            ),
+            Container(
+              alignment: Alignment.center,
+              child: Container(
+                decoration: BoxDecoration(boxShadow: [
+                  BoxShadow(
+                      blurRadius: 24,
+                      spreadRadius: 16,
+                      color: Colors.black.withOpacity(0.9))
+                ]),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(16.0),
+                  child: BackdropFilter(
+                    filter: ImageFilter.blur(
+                      sigmaX: 4.0,
+                      sigmaY: 4.0,
+                    ),
+                    child: Container(
+                      height: 317,
                       width: 380,
                       decoration: BoxDecoration(
                           color: Colors.white.withOpacity(0.1),

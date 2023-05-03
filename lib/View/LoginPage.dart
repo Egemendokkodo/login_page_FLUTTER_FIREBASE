@@ -1,9 +1,14 @@
 import '../Widget/widgets.dart';
 import 'package:flutter/material.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return MyWidgets().GlassPaneForLoginPage(Column(
@@ -12,7 +17,7 @@ class LoginPage extends StatelessWidget {
             null, "Email", TextInputType.emailAddress, Icons.email),
         Container(
           margin: const EdgeInsets.only(top: 15),
-          child: MyWidgets().MyElevatedButtonLogin("Submit"),
+          child: MyWidgets().MyElevatedButtonLogin(context,"Submit"),
         ),
         Container(
             margin: const EdgeInsets.only(top: 20),
