@@ -9,15 +9,17 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  TextEditingController emailController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return MyWidgets().GlassPaneForLoginPage(Column(
       children: [
         MyWidgets().TextFieldCustom(
-            null, "Email", TextInputType.emailAddress, Icons.email),
+            emailController, "Email", TextInputType.emailAddress, Icons.email),
         Container(
           margin: const EdgeInsets.only(top: 15),
-          child: MyWidgets().MyElevatedButtonLogin(context,"Submit"),
+          child: MyWidgets().MyElevatedButtonLogin(context, "Submit",emailController),
         ),
         Container(
             margin: const EdgeInsets.only(top: 20),

@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:login_page_design/Firebase/database_operations.dart';
 import 'package:login_page_design/Widget/widgets.dart';
 
 class EnterPasswordPage extends StatefulWidget {
-  const EnterPasswordPage({super.key});
+  final Map<String, dynamic> userData;
+
+  const EnterPasswordPage({Key? key, required this.userData}) : super(key: key);
 
   @override
   State<EnterPasswordPage> createState() => _EnterPasswordPageState();
@@ -16,6 +17,10 @@ class _EnterPasswordPageState extends State<EnterPasswordPage> {
 
   @override
   Widget build(BuildContext context) {
+    String email = widget.userData['email'];
+    String name = widget.userData['name'];
+    String surname = widget.userData['surname'];
+
     return MyWidgets().GlassPaneForEnterPasswordPage(
         PreferredSize(
           preferredSize: const Size.fromHeight(40),
@@ -38,18 +43,18 @@ class _EnterPasswordPageState extends State<EnterPasswordPage> {
                         margin: const EdgeInsets.only(left: 17),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
-                          children: const [
+                          children: [
                             Padding(
-                              padding: EdgeInsets.only(bottom: 4.0),
+                              padding: const EdgeInsets.only(bottom: 4.0),
                               child: Text(
-                                "Jane Doe",
-                                style: TextStyle(
+                                "$name $surname",
+                                style: const TextStyle(
                                     color: Colors.white,
                                     fontWeight: FontWeight.bold),
                               ),
                             ),
-                            Text("janedoe@gmail.com",
-                                style: TextStyle(color: Colors.white))
+                            Text(email,
+                                style: const TextStyle(color: Colors.white))
                           ],
                         ),
                       )
@@ -70,7 +75,10 @@ class _EnterPasswordPageState extends State<EnterPasswordPage> {
                               backgroundColor: const Color(0xff1b8bb4),
                               minimumSize: const Size.fromHeight(50),
                             ),
-                            onPressed: () {},
+                            onPressed: () {
+                              DatabaseOperations().nextLoginTransaction(
+                                  context, email, passwordController.text);
+                            },
                             child: const Text(
                               "Log in",
                               style: TextStyle(
@@ -82,7 +90,7 @@ class _EnterPasswordPageState extends State<EnterPasswordPage> {
                     ),
                   ),
                   Container(
-                    margin: EdgeInsets.only(top: 10),
+                    margin: const EdgeInsets.only(top: 10),
                     child: TextButton(
                         onPressed: () {},
                         child: const Text(

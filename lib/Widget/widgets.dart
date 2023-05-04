@@ -128,7 +128,8 @@ class MyWidgets {
 
   ElevatedButton MyElevatedButtonLogin(
     BuildContext context,
-    String s,
+    String s, TextEditingController emailController,
+    
   ) {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
@@ -139,8 +140,8 @@ class MyWidgets {
         minimumSize: const Size.fromHeight(50),
       ),
       onPressed: () {
-        Navigator.of(context).push(
-            MaterialPageRoute(builder: (context) => const EnterPasswordPage()));
+        
+        DatabaseOperations().loginTransaction(context, emailController.text);
       },
       child: Text(
         s,
